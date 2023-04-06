@@ -8,17 +8,17 @@
         style="width: 90%; max-width: 50rem;">
         @csrf
         <h1 class="text-center pb-5 display-4 fs-3">
-            Add New Book
+           @lang('site.addnewBook')
         </h1>
         <div class="mb-3">
             <label class="form-label">
-                Book Title
+                @lang('site.BookTitle')
             </label>
             <input type="text" class="form-control" name="title">
         </div>
 
         <div class="form-group">
-            <label>Book Description :</label>
+            <label> @lang('site.Bookdesc')</label>
             <textarea class="form-control" name="desc" rows="3"></textarea>
         </div>
         {{-- Select Categories :
@@ -29,11 +29,11 @@
             </label>
         </div> --}}
         <div class="mb-3">
-            <label for="formFile" class="form-label">Book Image</label>
+            <label for="formFile" class="form-label"> @lang('site.Bookimg')</label>
             <input class="form-control" type="file" name="img" id="formFile">
         </div>
         <button type="submit" class="btn btn-primary">
-            Add Book</button>
+            @lang('site.submit')</button>
     </form>
     </div>
 @endsection

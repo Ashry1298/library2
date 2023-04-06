@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
+use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Http\Requests\BookValidation;
 use App\Http\Requests\UpdateBookValidation;
-use App\Models\Book;
-use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
 
     public function index()
     {
-        $books = Book::paginate(1);
-        return view('books.index', compact('books'));
+        $books = Book::get();
+        $categories=Category::get();
+        return view('books.index',['books'=>$books,'categories'=>$categories]);
     }
 
     public function show(Book $book)

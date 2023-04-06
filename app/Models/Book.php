@@ -9,10 +9,14 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'desc','img'];
+    protected $fillable = ['title', 'desc', 'img'];
 
     public function categories()
     {
         return $this->hasMany('App\Models\Category');
+    }
+    public function writer()
+    {
+        return $this->belongsTo(Writer::class);
     }
 }

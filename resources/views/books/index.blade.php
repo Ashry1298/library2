@@ -11,6 +11,7 @@
         <button type="button" class="btn btn-outline-primary active">Create</button>
     </a>
     @endauth
+    
     @if (!empty($books))
         @foreach ($books as $book)
             <h2> {{ $book->title }} </h2>
@@ -33,5 +34,4 @@
     @else
         {{ 'Sorry There are no books here' }}
     @endif
-    {{ $books->render() }}
 @endsection
