@@ -71,4 +71,9 @@ class BookController extends Controller
             return redirect()->route('book.index');
         }
     }
+
+    public function showtitle()
+    {
+        return view("test");
+    }
 }

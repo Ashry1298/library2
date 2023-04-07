@@ -1,11 +1,13 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\WriterController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Symfony\Component\Routing\RouterInterface;
 
 
@@ -17,24 +19,27 @@ Route::middleware('Setlang')->group(function () {
 
     Route::middleware('IsLogin')->group(
         function () {
-            //books
-            Route::get("/books/create", [BookController::class, 'create'])->name('book.create');
-            Route::post("/books/create", [BookController::class, 'store'])->name('book.store');
-            Route::get("/books/edit/{book:id}", [BookController::class, 'edit'])->name('book.edit');
-            Route::post("/books/update/{id}", [BookController::class, 'update'])->name('book.update');
-            Route::get("/books/delete/{book:id}", [BookController::class, 'destroy'])->name('book.destroy');
-            //categories
-            Route::post("/categories/create", [CategoryController::class, 'store'])->name('category.store');
-            Route::get("/categories/edit/{category:id}", [CategoryController::class, 'edit'])->name('category.edit');
-            Route::post("/categories/update/{id}", [CategoryController::class, 'update'])->name('category.update');
-            Route::get("/categories/create", [CategoryController::class, 'create'])->name('category.create');
-            Route::get("/categories/delete/{category:id}", [CategoryController::class, 'destroy'])->name('category.destroy');
-            //writers
-            Route::get("/writers/create", [WriterController::class, 'create'])->name('writer.create');
-            Route::get("/writers/edit/{id}", [WriterController::class, 'edit'])->name('writer.edit');
-            Route::post("/writers/store", [WriterController::class, 'store'])->name('writer.store');
-            Route::post("/writers/update/{id}", [WriterController::class, 'update'])->name('writer.update');
-            Route::get('/delete/{id}', [WriterController::class, 'destroy'])->name('writer.delete');
+            Route::controller(BookController::class)->group(function () {
+                Route::get("/books/create", 'create')->name('book.create');
+                Route::post("/books/create", 'store')->name('book.store');
+                Route::get("/books/edit/{book:id}", 'edit')->name('book.edit');
+                Route::post("/books/update/{id}", 'update')->name('book.update');
+                Route::get("/books/delete/{book:id}", 'destroy')->name('book.destroy');
+            });
+            Route::controller(CategoryController::class)->group(function () {
+                Route::post("/categories/create", 'store')->name('category.store');
+                Route::get("/categories/edit/{category:id}", 'edit')->name('category.edit');
+                Route::post("/categories/update/{id}", 'update')->name('category.update');
+                Route::get("/categories/create", 'create')->name('category.create');
+                Route::get("/categories/delete/{category:id}", 'destroy')->name('category.destroy');
+            });
+            Route::controller(WriterController::class)->group(function () {
+                Route::get("/writers/create", 'create')->name('writer.create');
+                Route::get("/writers/edit/{id}", 'edit')->name('writer.edit');
+                Route::post("/writers/store", 'store')->name('writer.store');
+                Route::post("/writers/update/{id}", 'update')->name('writer.update');
+                Route::get('/delete/{id}', 'destroy')->name('writer.delete');
+            });
             //logout
             Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
         }
@@ -62,3 +67,13 @@ Route::middleware('Setlang')->group(function () {
     Route::get("/lang/en", [LangController::class, 'changetoenglish'])->name('lang.en');
     Route::get("/lang/ar", [LangController::class, 'changetoarabic'])->name('lang.ar');
 });
+
+// Route::get('/test',function ()
+// {
+//     return view('test');
+// });
+
+// Route::post('/testrequest',function(Request $request)
+// {
+//  return dd($request->all());
+// })->name('testrequest');
